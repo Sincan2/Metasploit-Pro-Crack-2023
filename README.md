@@ -5,8 +5,11 @@ download https://downloads.metasploit.com/data/releases/metasploit-latest-linux-
 
 
 cp application.html.erb /opt/metasploit/apps/pro/ui/app/views/layouts/application.html.erb
+
 cp application_controller.rb /opt/metasploit/apps/pro/ui/app/controllers/application_controller.rb
+
 cp license.rb /opt/metasploit/apps/pro/ui/app/models/license.rb
+
 cp tasks.rb /opt/metasploit/apps/pro/engine/app/concerns/metasploit/pro/engine/rpc/tasks.rb
 
 
