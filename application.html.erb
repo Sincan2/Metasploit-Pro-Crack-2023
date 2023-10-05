@@ -1,0 +1,122 @@
+<% include_jquery_ui %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+  <title>Metasploit - <%= yield(:title) %></title>
+
+  <%= stylesheet_link_tag 'application' %>
+
+  <%# Pull in jquery from the jquery gem %>
+  <%= yield :jquery %>
+  <%= @application_backbone.nil? ? javascript_include_tag('application') : javascript_include_tag('application_backbone') %>
+  <%= include_require 'shared/require_config'%>
+
+  <%= csrf_meta_tags %>
+
+  <%= yield :head %>
+  <%= yield :view_javascript %>
+  <%= javascript_include_tag 'backbone/require_config' %>
+  <%= yield :view_stylesheets %>
+  <%= render :partial => 'shared/shortcut_link_tags' %>
+
+  <%= include_gon_jquery %>
+
+</head>
+<body id="<%= controller.action_name %>" class="<%= controller.controller_name %>">
+<div id="dialog-region"></div>
+<div id='appWrap'>
+  <div class='side-borders'>
+    <div id="popup" style="display: none">
+      <div class="overlay" id="popup_overlay"></div>
+      <div class="window">
+        <div class="title_bar" id="popup_title">[Title]</div>
+        <div class="content" id="popup_content">[Content]</div>
+      </div>
+    </div>
+    <div id="header">
+      <div id="header-top-border"></div>
+      <a href="<%= root_path %>" id="logo-wrap">
+        <span id="logo" class="<%= edition_name %>"></span>
+      </a>
+      <%= render :partial => 'generic/top_menu_new_branding' %>
+    </div>
+
+    <% if @workspace and !@workspace.new_record? %>
+      <%= render :partial => 'generic/tabs' %>
+    <% else %>
+      <div id="workspace_nav">
+        <ul class="nav_tabs">
+        </ul>
+      </div>
+    <% end %>
+<!--
+    <% if @license and @license.activated? and @license.updates_expired? and !(controller.controller_name == 'licenses' && controller.action_name == 'activation') %>
+      <div id="license_expired">
+        <strong>License Expired</strong> -
+        <% if @license.perpetual? && !@license.expired? %>
+          You will no longer receive security updates, new exploits and feature enhancements.
+        <% end %>
+        <%= rapid7_contact_link %> to renew your license.
+        <br/>
+        <% if !(controller.controller_name == 'licenses' && controller.action_name == 'index') %>
+          <%= link_to "Details", licenses_url %>
+        <% end %>
+      </div>
+    <% end %>
+ -->
+    <div id="main" class="clearfix">
+      <div class="mainPad">
+        <div id='top-strip'></div>
+        <div id="content">
+          <%= render :partial => 'generic/disabled_overlay' %>
+          <noscript>
+            <p class="noscript_warning">Please enable JavaScript</p>
+          </noscript>
+          <div class="float-Rt">
+            <%= yield(:header_buttons) %>
+          </div>
+          <div id="crumbHolder" class="clearfix">
+            <div id="breadcrumb" class="clearfix">
+              <%= yield(:breadcrumb) %>
+            </div>
+          </div>
+          <div class="mainContent">
+            <div id="flash_messages">
+              <%= render :partial => "generic/flash_messages" %>
+            </div>
+            <%= raw(force_utf8(yield)) %>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="footer" class="clearfix max-width">
+      <div class="productby">
+        <a href="http://www.rapid7.com" title="Rapid7" target="_blank">
+          <%= image_tag "r7logo_new.png" %>
+        </a>
+      </div>
+      <div class="version">
+        <%=h License.get.product_type_version %> - Update <%=h License.get.footer_revision %>
+      </div>
+      <div class="copyright">
+        © 2010-<%= Time.now.utc.year %> Rapid7 Inc, Boston, MA
+        <% if License.get.activated? and not License.get.community? %>
+          | <a href="http://www.rapid7.com/for-customers/" id="support-link" target="_support">Rapid7 Support Center</a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="modals" class="empty"></div>
+
+<%= yield :bottom_javascript %>
+<%= javascript_include_tag 'shared/notification_center' %>
+
+</body>
+
+</html>
