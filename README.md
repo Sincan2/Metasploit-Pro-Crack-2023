@@ -1,8 +1,9 @@
 # Metasploit-Pro-Crack-2023
 
 
-download https://downloads.metasploit.com/data/releases/metasploit-latest-linux-x64-installer.run
+download Linux https://downloads.metasploit.com/data/releases/metasploit-latest-linux-x64-installer.run
 
+download Windows https://downloads.metasploit.com/data/releases/metasploit-latest-windows-installer.exe
 
 cp application.html.erb /opt/metasploit/apps/pro/ui/app/views/layouts/application.html.erb
 
