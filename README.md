@@ -20,5 +20,7 @@ msfdb init
 sudo msfpro
 
 WEB UI https://localhost:3790
+
 Username : Sincan2
+
 Password : Sincan2
