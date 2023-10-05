@@ -14,9 +14,13 @@ cp tasks.rb /opt/metasploit/apps/pro/engine/app/concerns/metasploit/pro/engine/r
 
 
 systemctl restart metasploit
+
 systemctl status metasploit
+
 cd /opt/metasploit
+
 msfdb init
+
 sudo msfpro
 
 WEB UI https://localhost:3790
